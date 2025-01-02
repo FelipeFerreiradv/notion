@@ -2,6 +2,9 @@ import { Button } from "@/components/ui/button";
 import Navbar from "@/components/ui/navbar";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import Partness from "./_components/partnes";
+import InterfaceNotionLogin from "./_components/interface-notion-login";
+import GetStartedFree from "./_components/get-started-free";
 
 const Login = () => {
   return (
@@ -29,8 +32,12 @@ const Login = () => {
           alt="product road map"
           width={1024}
           height={666.33}
+          className="shadow-black"
         />
       </section>
+      <Partness />
+      <InterfaceNotionLogin />
+      <GetStartedFree />
     </>
   );
 };
