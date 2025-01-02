@@ -5,6 +5,8 @@ import Image from "next/image";
 import Partness from "./_components/partnes";
 import InterfaceNotionLogin from "./_components/interface-notion-login";
 import GetStartedFree from "./_components/get-started-free";
+import PowerFullBuildingBlocks from "./_components/powerfull-building-blocks";
+import Footer from "@/components/ui/footer";
 
 const Login = () => {
   return (
@@ -37,7 +39,9 @@ const Login = () => {
       </section>
       <Partness />
       <InterfaceNotionLogin />
+      <PowerFullBuildingBlocks />
       <GetStartedFree />
+      <Footer />
     </>
   );
 };
