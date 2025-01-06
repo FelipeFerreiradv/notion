@@ -12,7 +12,6 @@ import { fastify } from "fastify";
 import { Database } from "./infra/database.js";
 
 const server = fastify();
-
 const database = new Database();
 
 server.post("/videos", (request, reply) => {
@@ -27,8 +26,12 @@ server.post("/videos", (request, reply) => {
   return reply.status(201).send();
 });
 
-server.get("/videos", () => {
+server.get("/videos", (request) => {
   const videos = database.list();
+
+  const search = request.query.search;
+
+  console.log(search);
 
   return videos;
 });

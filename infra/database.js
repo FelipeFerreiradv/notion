@@ -11,7 +11,13 @@ export class Database {
       return {
         id,
         ...data,
-      };
+      }.filter(() => {
+        if (search) {
+          return video.title.includes(search);
+        }
+
+        return True;
+      });
     });
   }
 
