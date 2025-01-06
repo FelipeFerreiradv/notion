@@ -27,9 +27,9 @@ server.post("/videos", (request, reply) => {
 });
 
 server.get("/videos", (request) => {
-  const videos = database.list();
-
   const search = request.query.search;
+
+  const videos = database.list(search);
 
   console.log(search);
 

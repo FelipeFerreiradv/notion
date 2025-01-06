@@ -2,14 +2,14 @@ POST http://localhost:3001/videos
 Content-Type: application/json
 
 {
-    "title": "Novo video",
-    "description": "Esse e meu primeiro video",
+    "title": "Novo node",
+    "description": "Esse e meu primeiro node",
     "duration": 180
 }
 
 ###
 
-GET http://localhost:3001/videos?search=node
+GET http://localhost:3001/videos/search=node
 
 ###
 
