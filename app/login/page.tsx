@@ -1,47 +1,60 @@
-import { Button } from "@/components/ui/button";
-import Navbar from "@/components/ui/navbar";
-import { ArrowRight } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import Image from "next/image";
-import Partness from "./_components/partnes";
-import InterfaceNotionLogin from "./_components/interface-notion-login";
-import GetStartedFree from "./_components/get-started-free";
-import PowerFullBuildingBlocks from "./_components/powerfull-building-blocks";
-import Footer from "@/components/ui/footer";
+import LoginCard from "./_components/login-card";
 
 const Login = () => {
   return (
     <>
-      <Navbar />
-      <section className="flex flex-col items-center w-full h-full mx-auto my-28">
-        <Image
-          src="/projects-together-login.png"
-          alt="Projects together login"
-          width={787}
-          height={158}
-        />
-        <p className="max-w-[468px] mt-3 mb-6 font-medium text-2xl">
-          Notion is the connected workspace where better, faster work happens.
-        </p>
-        <div>
-          <Button className="w-[163px] h-[36px] rounded-md font-semibold text-base">
-            Get Notion free <ArrowRight width={16} className="font-semibold" />
-          </Button>
-        </div>
-      </section>
-      <section className="flex items-center justify-center w-full h-full">
-        <Image
-          src="/product-roadmap-login.png"
-          alt="product road map"
-          width={1024}
-          height={666.33}
-          className="shadow-black"
-        />
-      </section>
-      <Partness />
-      <InterfaceNotionLogin />
-      <PowerFullBuildingBlocks />
-      <GetStartedFree />
-      <Footer />
+      <header className="flex items-center w-full">
+        <nav className="flex items-center gap-4 m-6">
+          <Image
+            src="/notion-logo.png"
+            alt="notion logo"
+            width={30}
+            height={30}
+          />
+          <div className="w-[1px] h-5 bg-[#00000031]"></div>
+          <div className="ml-[-1rem]">
+            <Select>
+              <SelectTrigger className="w-[115px] h-[36px] border-transparent">
+                <SelectValue placeholder="English" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem
+                  value="Portugês"
+                  className="flex flex-col items-start justify-start gap-4"
+                >
+                  <h2>Português (Brasil)</h2>
+                  <p className="text-xs text-zinc-500">Português (Brasil)</p>
+                </SelectItem>
+                <SelectItem
+                  value="Portugês"
+                  className="flex flex-col items-start justify-start gap-4"
+                >
+                  <h2>English (United States)</h2>
+                  <p className="text-xs text-zinc-500">
+                    English (United States)
+                  </p>
+                </SelectItem>
+                <SelectItem
+                  value="Portugês"
+                  className="flex flex-col items-start justify-start gap-4"
+                >
+                  <h2>Spanish (Espana)</h2>
+                  <p className="text-xs text-zinc-500">Spanish (Espana)</p>
+                </SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </nav>
+      </header>
+      <LoginCard />
     </>
   );
 };
