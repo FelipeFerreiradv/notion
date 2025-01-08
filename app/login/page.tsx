@@ -7,18 +7,21 @@ import {
 } from "@/components/ui/select";
 import Image from "next/image";
 import LoginCard from "./_components/login-card";
+import Link from "next/link";
 
 const Login = () => {
   return (
     <>
       <header className="flex items-center w-full">
         <nav className="flex items-center gap-4 m-6">
-          <Image
-            src="/notion-logo.png"
-            alt="notion logo"
-            width={30}
-            height={30}
-          />
+          <Link href="/product">
+            <Image
+              src="/notion-logo.png"
+              alt="notion logo"
+              width={30}
+              height={30}
+            />
+          </Link>
           <div className="w-[1px] h-5 bg-[#00000031]"></div>
           <div className="ml-[-1rem]">
             <Select>
