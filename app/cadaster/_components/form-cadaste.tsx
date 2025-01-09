@@ -396,7 +396,7 @@ const FormCadaster: React.FC = () => {
         </div>
         <div className="flex items-center justify-between w-full">
           <div className="flex flex-col gap-2 w-full">
-            <label htmlFor="itextarea">First name</label>
+            <label htmlFor="itextarea">Provide more details(optional)</label>
             <Textarea
               placeholder="How are you looking to use Notion?"
               id="itextarea"
