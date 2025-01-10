@@ -15,7 +15,7 @@ const Partness = () => {
           </p>
           <p className="text-base">to established enterprises</p>
         </div>
-        <Button className="w-96 h-6 text-sm">
+        <Button className="w-96 h-8 text-sm">
           Read customer stories <ArrowRight width={18} />
         </Button>
         <Image
