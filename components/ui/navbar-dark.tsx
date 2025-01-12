@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./button";
 import { useState } from "react";
+import GetNotionFreeButton from "@/app/product/ai/_components/get-notion-free-notion";
 
 const NavbarDark = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -224,9 +225,7 @@ const NavbarDark = () => {
           </p>
         </section>
         <div className="flex flex-col items-center justify-center gap-4 mb-24">
-          <Button className="w-[96%] h-[36px] font-bold text-lg text-white bg-[#9D34DA]">
-            Get Notion free
-          </Button>
+          <GetNotionFreeButton />
           <Button className="w-[96%] h-[36px] text-lg text-white bg-transparent hover:bg-transparent">
             Log in
           </Button>
