@@ -28,7 +28,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/api/user.js",
-    "infra/database.ts"
+    "infra/database.js"
   ],
   "exclude": ["node_modules"]
 }
