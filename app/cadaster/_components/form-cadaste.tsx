@@ -1,16 +1,16 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/app/components/ui/button";
+import { Checkbox } from "@/app/components/ui/checkbox";
+import { Input } from "@/app/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select-normal";
-import { Textarea } from "@/components/ui/textarea";
+} from "@/app/components/ui/select-normal";
+import { Textarea } from "@/app/components/ui/textarea";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
@@ -28,11 +28,11 @@ const FormCadaster: React.FC = () => {
 
   const getCountryFromCoordinates = async (
     latitude: number,
-    longitude: number,
+    longitude: number
   ) => {
     try {
       const response = await fetch(
-        `https://geocode.xyz/${latitude},${longitude}?json=1`,
+        `https://geocode.xyz/${latitude},${longitude}?json=1`
       );
       const data = await response.json();
       if (data.country) {

@@ -28,7 +28,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/api/user/cadaster.js",
-    "infra/database.js"
+    "infra/database.js",
+    "app/api/_untils/prisma.ts"
   ],
   "exclude": ["node_modules"]
 }

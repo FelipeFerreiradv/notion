@@ -1,17 +1,17 @@
 import { fastify } from "fastify";
-import { DatabaseMemory } from "../../database-memory.js";
+import prisma from "../../prisma/prisma.js";
 
 const server = fastify();
 
-const usersDatabase = new DatabaseMemory();
-
-server.post("/users", (request, reply) => {
+server.post("/users", async (request, reply) => {
   const { name, email, age } = request.body;
 
-  usersDatabase.create({
-    name,
-    email,
-    age,
+  await prisma.user.create({
+    data: {
+      name,
+      email,
+      age,
+    },
   });
 
   console.log(request.body);
@@ -19,32 +19,60 @@ server.post("/users", (request, reply) => {
   return reply.status(201).send();
 });
 
-server.get("/users", () => {
-  const users = usersDatabase.list();
+server.get("/users", async (request) => {
+  let users = [];
 
-  console.log(users);
+  const query = request.query;
+
+  if (query) {
+    users = await prisma.user.findMany({
+      where: {
+        id: request.query.id,
+        name: request.query.name,
+        email: request.query.email,
+        age: request.query.age,
+      },
+    });
+  } else {
+    users = await prisma.user.findMany();
+  }
 
   return users;
 });
 
-server.put("/users/:id", (request, reply) => {
+server.put("/users/:id", async (request, reply) => {
   const { name, email, age } = request.body;
 
-  const userId = request.params.id;
+  const id = request.params.id;
 
-  usersDatabase.update(userId, {
-    name,
-    email,
-    age,
+  await prisma.user.update({
+    where: {
+      id: parseInt(id),
+    },
+    data: {
+      name,
+      email,
+      age,
+    },
   });
+
+  console.log(request.body);
 
   return reply.status(204).send();
 });
 
-server.delete("/users/:id", (request) => {
-  const userId = request.params.id;
+server.delete("/users/:id", async (request, reply) => {
+  const id = request.params.id;
 
-  return usersDatabase.delete(userId);
+  await prisma.user.delete({
+    where: {
+      id: parseInt(id),
+    },
+  });
+
+  console.log(request.body);
+
+  return reply.status(204).send();
 });
 
 server.listen({

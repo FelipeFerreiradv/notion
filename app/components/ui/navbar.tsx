@@ -137,7 +137,7 @@ const Navbar = () => {
             </div>
           </div>
           <div className="flex items-center gap-8">
-            <Link href="#" className="font-semibold text[14px]">
+            <Link href="/cadaster" className="font-semibold text[14px]">
               Request a demo
             </Link>
             <div className="flex items-center gap-4">

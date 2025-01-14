@@ -1,12 +1,12 @@
-import { Button } from "@/components/ui/button";
-import Navbar from "@/components/ui/navbar";
+import { Button } from "@/app/components/ui/button";
+import Navbar from "@/app/components/ui/navbar";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Partness from "./_components/partnes";
 import InterfaceNotionLogin from "./_components/interface-notion-login";
 import GetStartedFree from "./_components/get-started-free";
 import PowerFullBuildingBlocks from "./_components/powerfull-building-blocks";
-import Footer from "@/components/ui/footer";
+import Footer from "@/app/components/ui/footer";
 
 const Product = () => {
   return (

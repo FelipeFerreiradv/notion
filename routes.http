@@ -1,4 +1,4 @@
-GET http://localhost:3333/users
+GET http://localhost:3333/users?name=Aryla Mayane Gomes Chagas 
 
 ###
 
@@ -6,18 +6,22 @@ POST http://localhost:3333/users
 Content-Type: application/json
 
 {
-    "name": "Fleipe lucas",
-    "emails": "dlsf@gmail.com",
-    "age": 12
+    "name": "Arila Mayane",
+    "email": "ilovaarila@gmail.com",
+    "age": 16
 }
 
 ###
 
-PUT http://localhost:3333/users/
+PUT http://localhost:3333/users/22
 Content-Type: application/json
 
 {
-    "name": "Fleipe lucas",
-    "emails": "dlsf@gmail.com",
-    "age": 12
+    "name": "Aryla Mayane Gomes Chagas",
+    "email": "ilovewarilasomuch@gmail.com",
+    "age": 18
 }
+
+###
+
+DELETE http://localhost:3333/users/20
