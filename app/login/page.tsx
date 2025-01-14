@@ -4,7 +4,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@/app/components/ui/select";
 import Image from "next/image";
 import LoginCard from "./_components/login-card";
 import Link from "next/link";

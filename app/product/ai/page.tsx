@@ -1,7 +1,7 @@
-import NavbarDark from "@/components/ui/navbar-dark";
+import NavbarDark from "@/app/components/ui/navbar-dark";
 import Image from "next/image";
 import GetNotionFreeButton from "./_components/get-notion-free-notion";
-import { Textarea } from "@/components/ui/textarea";
+import { Textarea } from "@/app/components/ui/textarea";
 
 const Ai = () => {
   return (

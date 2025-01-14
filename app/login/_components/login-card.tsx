@@ -1,6 +1,6 @@
-import { Input } from "@/components/ui/input";
+import { Input } from "@/app/components/ui/input";
 import LoginsSocials from "./login-socials";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/app/components/ui/button";
 
 const LoginCard = () => {
   return (
