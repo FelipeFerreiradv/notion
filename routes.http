@@ -1,26 +1,23 @@
-POST http://localhost:3001/videos
+GET http://localhost:3333/users
+
+###
+
+POST http://localhost:3333/users
 Content-Type: application/json
 
 {
-    "title": "Novo node",
-    "description": "Esse e meu primeiro node",
-    "duration": 180
+    "name": "Fleipe lucas",
+    "emails": "dlsf@gmail.com",
+    "age": 12
 }
 
 ###
 
-GET http://localhost:3001/videos/search=node
-
-###
-
-PUT http://localhost:3001/videos/1c2695a7-4abb-46ba-a5cb-7c9c5884103d
+PUT http://localhost:3333/users/
 Content-Type: application/json
 
 {
-    "title": "Editado",
-    "description": "Esse e meu primeiro video",
-    "duration": 180
+    "name": "Fleipe lucas",
+    "emails": "dlsf@gmail.com",
+    "age": 12
 }
-
-###
-DELETE http://localhost:3001/videos/ce12f2df-e953-400e-b109-66950ad40e8d

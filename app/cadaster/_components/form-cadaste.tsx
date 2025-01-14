@@ -28,11 +28,11 @@ const FormCadaster: React.FC = () => {
 
   const getCountryFromCoordinates = async (
     latitude: number,
-    longitude: number
+    longitude: number,
   ) => {
     try {
       const response = await fetch(
-        `https://geocode.xyz/${latitude},${longitude}?json=1`
+        `https://geocode.xyz/${latitude},${longitude}?json=1`,
       );
       const data = await response.json();
       if (data.country) {

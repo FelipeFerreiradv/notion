@@ -1,39 +1,46 @@
-import { randomUUID } from "crypto";
+import { Client } from "pg";
 
-export class Database {
-  #videos = new Map();
+const query = async (queryObject) => {
+  let client;
+  try {
+    client = await getNewClient();
+    const result = await client.query(queryObject);
+    return result;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  } finally {
+    await client.end();
+  }
+};
 
-  list(search) {
-    return Array.from(this.#videos.entries())
-      .map((videoArray) => {
-        const id = videoArray[0];
-        const data = videoArray[1];
-
-        return {
-          id,
-          ...data,
-        };
-      })
-      .filter((video) => {
-        if (search) {
-          return video.title.includes(search);
-        }
-
-        return true;
-      });
+const getSSLValues = () => {
+  if (process.env.POSTGRES_CA) {
+    return {
+      ca: process.env.POSTGRES_CA,
+    };
   }
 
-  create(video) {
-    const videoId = randomUUID();
+  return process.env.NODE_ENV === "production" ? true : false;
+};
 
-    this.#videos.set(videoId, video);
-  }
+const getNewClient = async () => {
+  const client = new Client({
+    host: process.env.POSTGRES_HOST,
+    port: process.env.POSTGRES_PORT,
+    user: process.env.POSTGRES_USER,
+    database: process.env.POSTGRES_DB,
+    password: process.env.POSTGRES_PASSWORD,
+    ssl: getSSLValues(),
+  });
 
-  update(id, video) {
-    this.#videos.set(video);
-  }
+  await client.connect();
+  return client;
+};
 
-  delete(id) {
-    this.#videos.delete(id);
-  }
-}
+const database = {
+  query,
+  getNewClient,
+};
+
+export default database;
