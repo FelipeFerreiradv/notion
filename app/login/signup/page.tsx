@@ -15,9 +15,7 @@ const Signup = () => {
   const getUser = async () => {
     try {
       const response = await api.get("/users");
-
       console.log(response);
-
       return response;
     } catch {
       throw new Error("User not found");
@@ -31,19 +29,18 @@ const Signup = () => {
         password: input_password.current.value,
       });
 
-      console.log(input_password);
-      console.log(input_email);
-      console.log(userInformations);
+      redirect("/");
 
-      redirect("/product");
+      return userInformations;
     } else {
-      throw new Error("Formulary is empty");
+      console.error("Inputs are not accessible");
     }
   };
 
   useEffect(() => {
     getUser();
   }, []);
+
   return (
     <>
       <div className="absolute top-10 left-1/2 translate-x-[-50%]">
@@ -65,14 +62,17 @@ const Signup = () => {
               name="email"
               id="iemail"
               placeholder="Email*"
+              required
               ref={input_email}
-              className="w-96 h-14 focus-visible:ring-0 border-[#686868] "
+              className="w-96 h-14 focus-visible:ring-0 border-[#686868]"
             />
             <Input
               type="password"
               name="password"
               id="ipassword"
               placeholder="Password*"
+              required
+              ref={input_password}
               className="w-96 h-14 focus-visible:ring-0 border-[#686868]"
             />
           </div>

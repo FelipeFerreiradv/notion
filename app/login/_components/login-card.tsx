@@ -25,16 +25,14 @@ const LoginCard = () => {
 
   const loginUser = async () => {
     if (input_email.current) {
-      const email = await api.get(`/users?email=${input_email.current.value}`);
+      const login = await api.get(`/users?email=${input_email.current.value}`);
 
-      console.log(email.data.length);
-
-      if (email.data.length === 0) {
+      if (login.data.length === 0) {
         alert("Email not found");
         redirect("/login/signup");
       }
 
-      redirect("/product");
+      redirect("/");
     } else {
       alert("Email input is not available");
     }
@@ -64,6 +62,7 @@ const LoginCard = () => {
               name="email"
               id="iemail"
               placeholder="Enter your email address"
+              required
               ref={input_email}
               className="text-[15px]"
             />
