@@ -18,7 +18,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "notion App",
+  title: "Notion App",
   description: "Notion description",
 };
 

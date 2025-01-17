@@ -1,8 +1,47 @@
+"use client";
+
 import { Input } from "@/app/components/ui/input";
 import LoginsSocials from "./login-socials";
 import { Button } from "@/app/components/ui/button";
+import api from "../../../services/user.js";
+import { useEffect, useRef } from "react";
+import { redirect } from "next/navigation";
 
 const LoginCard = () => {
+  const input_email = useRef<HTMLInputElement>(null);
+
+  const getUsers = async () => {
+    try {
+      const response = await api.get("/users");
+      console.log("Users fetched successfully:", response.data);
+
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      alert("Failed to connect API");
+      return null;
+    }
+  };
+
+  const loginUser = async () => {
+    if (input_email.current) {
+      const login = await api.get(`/users?email=${input_email.current.value}`);
+
+      if (login.data.length === 0) {
+        alert("Email not found");
+        redirect("/login/signup");
+      }
+
+      redirect("/");
+    } else {
+      alert("Email input is not available");
+    }
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
   return (
     <>
       <section className="flex flex-col items-center justify-center gap-8 my-20">
@@ -22,7 +61,9 @@ const LoginCard = () => {
               type="text"
               name="email"
               id="iemail"
-              placeholder="Enter your email adress"
+              placeholder="Enter your email address"
+              required
+              ref={input_email}
               className="text-[15px]"
             />
             <p className="text-xs text-neutral-400">
@@ -32,7 +73,9 @@ const LoginCard = () => {
           </div>
         </section>
         <div className="flex items-center justify-center">
-          <Button className="w-[320px] bg-sky-600">Continue</Button>
+          <Button className="w-[320px] bg-sky-600" onClick={loginUser}>
+            Continue
+          </Button>
         </div>
         <div>
           <p className="w-[450px] text-xs text-neutral-500">
