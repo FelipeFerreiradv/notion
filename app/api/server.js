@@ -1,15 +1,22 @@
 import { fastify } from "fastify";
 import prisma from "../../prisma/prisma.js";
+import cors from "@fastify/cors";
 
 const server = fastify();
 
+await server.register(cors, {
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+});
+
 server.post("/users", async (request, reply) => {
-  const { name, email, age } = request.body;
+  const { name, email, password, age } = request.body;
 
   await prisma.user.create({
     data: {
       name,
       email,
+      password,
       age,
     },
   });
@@ -30,6 +37,7 @@ server.get("/users", async (request) => {
         id: request.query.id,
         name: request.query.name,
         email: request.query.email,
+        password: request.query.password,
         age: request.query.age,
       },
     });
@@ -41,7 +49,7 @@ server.get("/users", async (request) => {
 });
 
 server.put("/users/:id", async (request, reply) => {
-  const { name, email, age } = request.body;
+  const { name, email, password, age } = request.body;
 
   const id = request.params.id;
 
@@ -52,6 +60,7 @@ server.put("/users/:id", async (request, reply) => {
     data: {
       name,
       email,
+      password,
       age,
     },
   });
@@ -75,6 +84,12 @@ server.delete("/users/:id", async (request, reply) => {
   return reply.status(204).send();
 });
 
-server.listen({
-  port: 3333,
-});
+try {
+  server.listen({
+    port: 3333,
+  });
+
+  console.log(`Server running at ${server}`);
+} catch {
+  throw new Error("Error to connect server");
+}

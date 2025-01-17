@@ -141,7 +141,10 @@ const Navbar = () => {
               Request a demo
             </Link>
             <div className="flex items-center gap-4">
-              <Link href="#" className="font-semibold text[15px] rounded-[5px]">
+              <Link
+                href="/login"
+                className="font-semibold text[15px] rounded-[5px]"
+              >
                 Log in
               </Link>
               <Button className="w-[126px] h-[30px] font-semibold text-[13.5px]">

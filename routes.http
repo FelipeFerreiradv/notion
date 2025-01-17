@@ -1,4 +1,4 @@
-GET http://localhost:3333/users?name=Aryla Mayane Gomes Chagas 
+GET http://localhost:3333/users
 
 ###
 
@@ -6,9 +6,8 @@ POST http://localhost:3333/users
 Content-Type: application/json
 
 {
-    "name": "Arila Mayane",
     "email": "ilovaarila@gmail.com",
-    "age": 16
+    "password": "123456"
 }
 
 ###
@@ -24,4 +23,4 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:3333/users/20
+DELETE http://localhost:3333/users/22
