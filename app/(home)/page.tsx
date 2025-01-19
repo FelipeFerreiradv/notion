@@ -1,3 +1,5 @@
+"use client";
+
 import { redirect } from "next/navigation";
 import { user } from "../api/login/login";
 import NavbarHorizontal from "../components/ui/navbar-horizontal";
@@ -9,6 +11,7 @@ const Home = () => {
 
   return (
     <>
+      <title>... - Home</title>
       <section className="w-screen h-screen bg-[#141414]">
         <NavbarHorizontal />
       </section>
