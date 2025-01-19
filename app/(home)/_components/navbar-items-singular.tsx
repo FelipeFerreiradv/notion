@@ -9,7 +9,7 @@ const NavbarItemsSingular = () => {
   useEffect(() => {
     const loader = setTimeout(() => {
       setIsLoading(false);
-    }, 500);
+    }, 100);
 
     return () => clearTimeout(loader);
   });
@@ -30,7 +30,7 @@ const NavbarItemsSingular = () => {
           <NavbarItems
             icon={<Webhook width={18} className="text-[#ffffff99]" />}
             title="Notion AI"
-            href="ai"
+            href="/ai"
           />
         )}
         {isLoading ? (

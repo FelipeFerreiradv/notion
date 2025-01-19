@@ -6,9 +6,11 @@ import NavbarItemsSingular from "@/app/(home)/_components/navbar-items-singular"
 import NotionAiButton from "@/app/(home)/_components/notion-ai-button";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
+  AlignJustify,
   CalendarRange,
   ChevronDown,
   ChevronsLeft,
+  ChevronsRight,
   CircleHelp,
   LayoutTemplate,
   NotebookPen,
@@ -21,12 +23,32 @@ import { useEffect, useState } from "react";
 const NavbarHorizontal = () => {
   const [toggleArrow, setToggleArrow] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isHide, setIsHide] = useState<boolean>(false);
+  const [isHover, setIsHover] = useState<boolean>(false);
+  const [isClick, setIsClick] = useState<boolean>(false);
+
+  console.log("isClick:", isClick, "isHide:", isHide, "isHover:", isHover);
 
   const toggleArrowHandle = () => {
-    setToggleArrow((prevState) => !prevState);
+    setToggleArrow(true);
   };
-  const toggleArrowHandleLeft = () => {
-    setToggleArrow(false);
+
+  const toggleNavbar = () => {
+    setIsHide((prevState) => !prevState);
+  };
+
+  const toggleHover = () => {
+    setIsHover((prevState) => !prevState);
+  };
+
+  const toggleClick = () => {
+    setIsClick((prevState) => !prevState);
+    if (!isClick) setIsHide((prevState) => !prevState);
+  };
+
+  const handleMouseMove = (event: MouseEvent) => {
+    const mouseX = event.clientX;
+    if (mouseX > 288) setIsHide(true);
   };
 
   useEffect(() => {
@@ -36,13 +58,38 @@ const NavbarHorizontal = () => {
 
     return () => clearTimeout(loader);
   });
+
+  useEffect(() => {
+    if (isHover) {
+      window.addEventListener("mousemove", handleMouseMove);
+    } else {
+      window.removeEventListener("mousemove", handleMouseMove);
+    }
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, [isHover]);
+
   return (
     <>
-      <section className="flex flex-col gap-6 w-72 h-screen pt-4 px-3 bg-[#202020]">
+      <section
+        className={
+          isClick
+            ? "flex flex-col gap-6 w-72 h-screen pt-4 px-3 bg-[#202020] transition-all"
+            : isHide
+              ? "hidden"
+              : `flex flex-col gap-6 ${
+                  isHover ? "absolute w-72 h-[45%] top-40" : "w-72 h-screen"
+                } pt-4 px-3 bg-[#202020] transition-all`
+        }
+      >
         <div
           className="flex flex-col gap-4 w-full"
           onMouseEnter={toggleArrowHandle}
-          onMouseLeave={toggleArrowHandleLeft}
+          onMouseLeave={() => {
+            setToggleArrow(false);
+          }}
         >
           <div className="flex items-center justify-between h-10 px-2 rounded-sm hover:bg-[#303030] cursor-pointer">
             <div className="flex gap-2">
@@ -65,7 +112,17 @@ const NavbarHorizontal = () => {
             ) : (
               <div className="flex items-center gap-4">
                 {toggleArrow ? (
-                  <ChevronsLeft width={24} className="text-[#ffffff9c]" />
+                  <ChevronsLeft
+                    width={24}
+                    className={
+                      isClick
+                        ? "text-[#ffffff9c]"
+                        : isHover
+                          ? "hidden"
+                          : "text-[#ffffff9c]"
+                    }
+                    onClick={toggleNavbar}
+                  />
                 ) : (
                   ""
                 )}
@@ -110,9 +167,29 @@ const NavbarHorizontal = () => {
             title="Help"
           />
         </div>
-        <Dots />
-        <NotionAiButton />
       </section>
+      <Dots />
+      <NotionAiButton />
+      <div className={isClick ? "hidden" : "absolute top-4 left-4"}>
+        {isHover ? (
+          <ChevronsRight
+            width={22}
+            height={22}
+            className="rounded-md text-[#ffffffc3] bg-zinc-800 cursor-pointer"
+            onMouseEnter={toggleNavbar}
+            onClick={toggleClick}
+          />
+        ) : isHide ? (
+          <AlignJustify
+            width={20}
+            height={20}
+            className="text-[#ffffffc3] cursor-pointer"
+            onMouseEnter={toggleHover}
+          />
+        ) : (
+          ""
+        )}
+      </div>
     </>
   );
 };
