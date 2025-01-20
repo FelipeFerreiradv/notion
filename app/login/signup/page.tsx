@@ -7,6 +7,7 @@ import Link from "next/link";
 import api from "@/services/user";
 import { useEffect, useRef } from "react";
 import { redirect } from "next/navigation";
+import { setCookie } from "cookies-next";
 
 const Signup = () => {
   const input_email = useRef<HTMLInputElement>(null);
@@ -29,6 +30,7 @@ const Signup = () => {
         password: input_password.current.value,
       });
 
+      setCookie("authorization", JSON.stringify(userInformations));
       redirect("/");
 
       return userInformations;

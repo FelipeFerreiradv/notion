@@ -27,8 +27,6 @@ const NavbarHorizontal = () => {
   const [isHover, setIsHover] = useState<boolean>(false);
   const [isClick, setIsClick] = useState<boolean>(false);
 
-  console.log("isClick:", isClick, "isHide:", isHide, "isHover:", isHover);
-
   const toggleArrowHandle = () => {
     setToggleArrow(true);
   };

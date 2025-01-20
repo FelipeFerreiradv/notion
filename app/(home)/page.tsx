@@ -1,13 +1,11 @@
-"use client";
-
 import { redirect } from "next/navigation";
-import { user } from "../api/login/login";
+import { login } from "../api/_untils/login";
 import NavbarHorizontal from "../components/ui/navbar-horizontal";
 
-const Home = () => {
-  if (!user) {
-    redirect("/login");
-  }
+const Home = async () => {
+  const userLogin = await login();
+
+  if (!userLogin) redirect("/product");
 
   return (
     <>
