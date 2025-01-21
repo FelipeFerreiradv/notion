@@ -6,8 +6,16 @@ POST http://localhost:3333/users
 Content-Type: application/json
 
 {
-    "email": "raphael@gmail.com",
-    "password": "24242424"
+    "email": "fefelbf@gmail.com",
+    "password": "oudsah87d322e8g3"
+}
+
+###
+POST http://localhost:3333/login
+Content-Type: application/json
+
+{
+    "email": "fefelbf@gmail.com",
 }
 
 ###

@@ -15,8 +15,6 @@ const LoginCard = () => {
   const getUsers = async () => {
     try {
       const response = await api.get("/users");
-      console.log("Users fetched successfully:", response);
-
       return response.data;
     } catch (error) {
       console.error("Error fetching users:", error);
@@ -35,7 +33,7 @@ const LoginCard = () => {
           redirect("/login/signup");
         }, 2000);
       } else {
-        setCookie("authorization", JSON.stringify(login));
+        setCookie("authorization", login);
         redirect("/");
       }
     } else {

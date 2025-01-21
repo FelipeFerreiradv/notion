@@ -1,8 +1,6 @@
 import { cookies } from "next/headers";
 
-export const login = () => {
-  const cookieStore = cookies();
-  const token = cookieStore.get("authorization")?.value || null;
-
-  return token;
+export const login = async () => {
+  const cookieStore = await cookies();
+  return cookieStore.get("authorization")?.value || null;
 };

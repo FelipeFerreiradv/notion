@@ -4,7 +4,8 @@ import Dots from "@/app/(home)/_components/dots";
 import NavbarItems from "@/app/(home)/_components/navbar-items";
 import NavbarItemsSingular from "@/app/(home)/_components/navbar-items-singular";
 import NotionAiButton from "@/app/(home)/_components/notion-ai-button";
-import { Skeleton } from "@/components/ui/skeleton";
+import UserAccountDialog from "@/app/(home)/_components/user-account-dialog";
+import { Skeleton } from "@/app/components/ui/skeleton";
 import {
   AlignJustify,
   CalendarRange,
@@ -26,6 +27,7 @@ const NavbarHorizontal = () => {
   const [isHide, setIsHide] = useState<boolean>(false);
   const [isHover, setIsHover] = useState<boolean>(false);
   const [isClick, setIsClick] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const toggleArrowHandle = () => {
     setToggleArrow(true);
@@ -47,6 +49,11 @@ const NavbarHorizontal = () => {
   const handleMouseMove = (event: MouseEvent) => {
     const mouseX = event.clientX;
     if (mouseX > 288) setIsHide(true);
+    if (mouseX > 288) setIsOpen(false);
+  };
+
+  const toggleOpenSettingsAccountDialog = () => {
+    setIsOpen((prevState) => !prevState);
   };
 
   useEffect(() => {
@@ -64,22 +71,24 @@ const NavbarHorizontal = () => {
       window.removeEventListener("mousemove", handleMouseMove);
     }
 
+    if (isClick) window.removeEventListener("mousemove", handleMouseMove);
+
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
     };
-  }, [isHover]);
+  }, [isHover, isClick]);
 
   return (
     <>
       <section
         className={
           isClick
-            ? "flex flex-col gap-6 w-72 h-screen pt-4 px-3 bg-[#202020] transition-all"
+            ? "flex flex-col gap-6 w-72 h-screen pt-2 px-3 bg-[#202020] transition-all"
             : isHide
               ? "hidden"
               : `flex flex-col gap-6 ${
-                  isHover ? "absolute w-72 h-[45%] top-40" : "w-72 h-screen"
-                } pt-4 px-3 bg-[#202020] transition-all`
+                  isHover ? "absolute w-72 h-[45%] top-16" : "w-72 h-screen"
+                } pt-2 px-3 bg-[#202020] transition-all`
         }
       >
         <div
@@ -90,15 +99,18 @@ const NavbarHorizontal = () => {
           }}
         >
           <div className="flex items-center justify-between h-10 px-2 rounded-sm hover:bg-[#303030] cursor-pointer">
-            <div className="flex gap-2">
+            <div
+              className="flex gap-2"
+              onClick={toggleOpenSettingsAccountDialog}
+            >
               {isLoading ? (
                 <Skeleton className="w-6 h-6 rounded-full" />
               ) : (
                 <Image
                   src="/perflog.jpg"
                   alt="perflog images"
-                  width={24}
-                  height={24}
+                  width={20}
+                  height={20}
                   className="rounded-full object-cover"
                 />
               )}
@@ -108,16 +120,16 @@ const NavbarHorizontal = () => {
             {isLoading ? (
               <Skeleton className="w-[1600px] h-[15px]" />
             ) : (
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3">
                 {toggleArrow ? (
                   <ChevronsLeft
                     width={24}
                     className={
                       isClick
-                        ? "text-[#ffffff9c]"
+                        ? "text-[#ffffff84]"
                         : isHover
                           ? "hidden"
-                          : "text-[#ffffff9c]"
+                          : "text-[#ffffff84]"
                     }
                     onClick={toggleNavbar}
                   />
@@ -166,6 +178,11 @@ const NavbarHorizontal = () => {
           />
         </div>
       </section>
+      {isOpen && (
+        <UserAccountDialog
+          className={isHover ? "top-28 z-[1]" : "top-11 z-[1]"}
+        />
+      )}
       <Dots />
       <NotionAiButton />
       <div className={isClick ? "hidden" : "absolute top-4 left-4"}>

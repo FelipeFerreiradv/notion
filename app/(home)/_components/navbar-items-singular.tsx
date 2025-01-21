@@ -1,7 +1,7 @@
 import { House, Inbox, Search, Webhook } from "lucide-react";
 import NavbarItems from "./navbar-items";
 import { useEffect, useState } from "react";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@/app/components/ui/skeleton";
 
 const NavbarItemsSingular = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);

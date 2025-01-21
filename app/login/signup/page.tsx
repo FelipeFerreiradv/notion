@@ -16,8 +16,7 @@ const Signup = () => {
   const getUser = async () => {
     try {
       const response = await api.get("/users");
-      console.log(response);
-      return response;
+      return response.data;
     } catch {
       throw new Error("User not found");
     }

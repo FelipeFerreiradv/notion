@@ -10,6 +10,7 @@ const Home = async () => {
   return (
     <>
       <title>... - Home</title>
+      <link rel="shortcut icon" href="/perflog.jpg" type="image/x-icon" />
       <section className="w-screen h-screen bg-[#141414]">
         <NavbarHorizontal />
       </section>
