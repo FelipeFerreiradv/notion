@@ -29,7 +29,9 @@
     ".next/types/**/*.ts",
     "app/api/user/cadaster.js",
     "infra/database.js",
-    "app/api/_untils/prisma.ts"
+    "app/api/_untils/prisma.ts",
+    "app/api/_untils/cookies.js",
+    "app/api/_untils/cookies.js"
   ],
   "exclude": ["node_modules"]
 }

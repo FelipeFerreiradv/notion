@@ -7,6 +7,7 @@ import Link from "next/link";
 import api from "@/services/user";
 import { useEffect, useRef } from "react";
 import { redirect } from "next/navigation";
+import { setCookie } from "cookies-next";
 
 const Signup = () => {
   const input_email = useRef<HTMLInputElement>(null);
@@ -15,8 +16,7 @@ const Signup = () => {
   const getUser = async () => {
     try {
       const response = await api.get("/users");
-      console.log(response);
-      return response;
+      return response.data;
     } catch {
       throw new Error("User not found");
     }
@@ -29,6 +29,7 @@ const Signup = () => {
         password: input_password.current.value,
       });
 
+      setCookie("authorization", JSON.stringify(userInformations));
       redirect("/");
 
       return userInformations;

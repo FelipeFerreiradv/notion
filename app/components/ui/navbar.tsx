@@ -192,11 +192,10 @@ const Navbar = () => {
           <Button className="w-[96%] h-[36px] font-bold text-lg text-white bg-[#1a1a19]">
             Get Notion free
           </Button>
-          <Button
-            variant="ghost"
-            className="w-[96%] h-[36px] text-lg text-black bg-transparent"
-          >
-            Log in
+          <Button variant="ghost" className="w-[96%] h-[36px] bg-transparent">
+            <Link href="/login" className="text-lg text-black">
+              Log in
+            </Link>
           </Button>
         </div>
       </header>
