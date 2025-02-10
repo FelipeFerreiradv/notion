@@ -5,12 +5,13 @@ import LoginsSocials from "./login-socials";
 import { Button } from "@/app/components/ui/button";
 import api from "../../../services/user.js";
 import { useEffect, useRef, useState } from "react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { setCookie } from "cookies-next";
 
 const LoginCard = () => {
   const input_email = useRef<HTMLInputElement>(null);
   const [erroInput, setErroInput] = useState("");
+  const router = useRouter();
 
   const getUsers = async () => {
     try {
@@ -23,18 +24,26 @@ const LoginCard = () => {
     }
   };
 
-  const loginUser = async (error) => {
+  const loginUser = async () => {
     if (input_email.current) {
-      const login = await api.get(`/users?email=${input_email.current.value}`);
+      try {
+        const response = await api.post("/login", {
+          email: input_email.current.value,
+        });
 
-      if (login.data.length === 0) {
-        setErroInput(error);
+        if (response.data && response.data.token) {
+          setCookie("authorization", response.data.token);
+          router.push("/");
+        } else {
+          throw new Error("Login failed");
+        }
+      } catch {
+        setErroInput(
+          "We could not reach the email address you provided. Please try again."
+        );
         setTimeout(() => {
-          redirect("/login/signup");
+          router.push("/login/signup");
         }, 2000);
-      } else {
-        setCookie("authorization", login);
-        redirect("/");
       }
     } else {
       throw new Error("Email input is not available");
@@ -84,8 +93,7 @@ const LoginCard = () => {
         <div>
           {erroInput ? (
             <p className="w-[450px] text-center text-base text-red-800">
-              We could not reach the email address you provided. Please try
-              again with a different email.
+              {erroInput}
             </p>
           ) : (
             ""

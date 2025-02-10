@@ -6,7 +6,8 @@ import Image from "next/image";
 import clsx from "clsx";
 import { logoutUser } from "@/app/api/_untils/logout";
 import UserSettings from "./settings";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import getUserProfile from "../_untils/get-user-profile";
 
 interface UserAccountDialogProps {
   className?: string;
@@ -18,6 +19,17 @@ const UserAccountDialog: React.FC<UserAccountDialogProps> = ({
   style,
 }) => {
   const [openSettings, setOpenSettings] = useState<boolean>(false);
+  const [email, setEmail] = useState<string | null>(null);
+
+  const getUser = async () => {
+    try {
+      const response = await getUserProfile();
+      console.log("User fetched:", response);
+      setEmail(response);
+    } catch (error) {
+      console.error("Error fetching user profile:", error);
+    }
+  };
 
   const userLogout = () => {
     const logout = logoutUser();
@@ -26,16 +38,19 @@ const UserAccountDialog: React.FC<UserAccountDialogProps> = ({
   };
 
   const toggleOpenSettings = () => {
-    console.log("clicou");
     setOpenSettings((prevState) => !prevState);
   };
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   return (
     <>
       <section
         style={style}
         className={clsx(
-          "absolute left-4 top-11 flex-col w-[300px] h-[300px] rounded-md bg-[#242424] z-[-1] transition-all duration-500",
+          "absolute left-4 top-11 flex-col w-[300px] h-[320px] rounded-md bg-[#242424] z-[-1] transition-all duration-500",
           className
         )}
       >
@@ -68,8 +83,30 @@ const UserAccountDialog: React.FC<UserAccountDialogProps> = ({
         </div>
         <div className="flex flex-col gap-2 w-full py-2 px-4 border-b-[.3px] border-[#ffffff21] bg-[#191919]">
           <div className="flex items-center justify-between">
-            <p className="text-xs text-[#ffffff70]">fefelbf@gmail.com</p>
-            <Ellipsis width={14} className="text-[#ffffff70]" />
+            <p className="text-xs text-[#ffffff70]">
+              {email || "../../../../../../"}
+            </p>
+            <Ellipsis
+              width={14}
+              height={14}
+              className="text-[#ffffff70] rounded-sm hover:bg-[#303030] cursor-pointer"
+            />
+
+            <div>
+              <div className="flex items-center gap-2">
+                <svg
+                  aria-hidden="true"
+                  role="graphics-symbol"
+                  viewBox="0 0 30 30"
+                  className="fill-[#ffffffcf]"
+                  width={20}
+                  height={20}
+                >
+                  <path d="M7.059 27.052H22.94c2.75 0 4.11-1.361 4.11-4.059V7.007c0-2.697-1.36-4.059-4.11-4.059H7.059c-2.736 0-4.111 1.349-4.111 4.059v15.986c0 2.71 1.375 4.06 4.11 4.06zm.026-2.108c-1.31 0-2.03-.694-2.03-2.055V7.112c0-1.362.72-2.056 2.03-2.056h15.83c1.296 0 2.029.694 2.029 2.056v15.777c0 1.361-.733 2.055-2.03 2.055H7.085zm7.895-3.758c.707 0 1.113-.484 1.113-1.243V16.08h4.111c.733 0 1.231-.392 1.231-1.086 0-.707-.471-1.113-1.23-1.113h-4.112V9.769c0-.759-.406-1.243-1.113-1.243-.694 0-1.073.51-1.073 1.243v4.112H9.822c-.773 0-1.257.405-1.257 1.112 0 .694.523 1.087 1.257 1.087h4.085v3.863c0 .733.38 1.243 1.073 1.243z"></path>
+                </svg>
+                <p>Join or create workspace</p>
+              </div>
+            </div>
           </div>
           <div className="flex items-center justify-between">
             <Image

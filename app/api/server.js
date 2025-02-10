@@ -3,7 +3,7 @@ import prisma from "../../prisma/prisma.js";
 import cors from "@fastify/cors";
 import jwt from "jsonwebtoken";
 
-const server = fastify();
+const server = fastify({ logger: true });
 
 await server.register(cors, {
   origin: "*",
@@ -21,31 +21,8 @@ const generateToken = (user) => {
   );
 };
 
-server.get("/login", async (request) => {
-  let users = [];
-  const query = request.query;
-
-  if (query) {
-    users = await prisma.user.findMany({
-      where: {
-        id: request.query.id,
-        name: request.query.name,
-        email: request.query.email,
-        perflog: request.query.perflog,
-        password: request.query.password,
-        age: request.query.age,
-      },
-    });
-  } else {
-    users = await prisma.user.findMany();
-  }
-
-  return users;
-});
-
 server.post("/login", async (request, reply) => {
   const { email } = request.body;
-  const token = generateToken(user);
 
   const user = await prisma.user.findUnique({
     where: {
@@ -56,6 +33,8 @@ server.post("/login", async (request, reply) => {
   if (!user) {
     return reply.status(401).send({ error: "User not found" });
   }
+
+  const token = generateToken(user);
 
   return reply.status(200).send({ token });
 });
@@ -139,9 +118,12 @@ server.delete("/users/:id", async (request, reply) => {
 });
 
 const verifyToken = (request, reply, done) => {
-  const token = request.headers["authorization"];
-  if (!token) return reply.status(403).send({ error: "Token is required" });
+  const authHeader = request.headers["authorization"];
+  if (!authHeader) {
+    return reply.status(403).send({ error: "Token is required" });
+  }
 
+  const token = authHeader.split(" ")[1];
   jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decoded) => {
     if (err) return reply.status(403).send({ error: "Invalid token" });
     request.user = decoded;
@@ -163,6 +145,7 @@ server.get("/profile", { preHandler: verifyToken }, async (request, reply) => {
 
   return reply.status(200).send({ user });
 });
+
 try {
   server.listen({
     port: 3333,
