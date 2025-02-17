@@ -91,32 +91,19 @@ const UserAccountDialog: React.FC<UserAccountDialogProps> = ({
               height={14}
               className="text-[#ffffff70] rounded-sm hover:bg-[#303030] cursor-pointer"
             />
-
-            <div>
-              <div className="flex items-center gap-2">
-                <svg
-                  aria-hidden="true"
-                  role="graphics-symbol"
-                  viewBox="0 0 30 30"
-                  className="fill-[#ffffffcf]"
-                  width={20}
-                  height={20}
-                >
-                  <path d="M7.059 27.052H22.94c2.75 0 4.11-1.361 4.11-4.059V7.007c0-2.697-1.36-4.059-4.11-4.059H7.059c-2.736 0-4.111 1.349-4.111 4.059v15.986c0 2.71 1.375 4.06 4.11 4.06zm.026-2.108c-1.31 0-2.03-.694-2.03-2.055V7.112c0-1.362.72-2.056 2.03-2.056h15.83c1.296 0 2.029.694 2.029 2.056v15.777c0 1.361-.733 2.055-2.03 2.055H7.085zm7.895-3.758c.707 0 1.113-.484 1.113-1.243V16.08h4.111c.733 0 1.231-.392 1.231-1.086 0-.707-.471-1.113-1.23-1.113h-4.112V9.769c0-.759-.406-1.243-1.113-1.243-.694 0-1.073.51-1.073 1.243v4.112H9.822c-.773 0-1.257.405-1.257 1.112 0 .694.523 1.087 1.257 1.087h4.085v3.863c0 .733.38 1.243 1.073 1.243z"></path>
-                </svg>
-                <p>Join or create workspace</p>
-              </div>
-            </div>
           </div>
           <div className="flex items-center justify-between">
-            <Image
-              src="/perflog.jpg"
-              alt="perflog images"
-              width={20}
-              height={20}
-              className="rounded-full object-cover"
-              style={{ width: "auto", height: "auto" }}
-            />
+            <div className="flex items-center gap-2">
+              <Image
+                src="/perflog.jpg"
+                alt="perflog images"
+                width={17}
+                height={17}
+                className="rounded-md object-cover"
+                style={{ width: "auto", height: "auto" }}
+              />
+              <p className="text-[#ccc]">...</p>
+            </div>
             <svg
               role="graphics-symbol"
               viewBox="0 0 16 16"
@@ -154,7 +141,7 @@ const UserAccountDialog: React.FC<UserAccountDialogProps> = ({
           </p>
         </div>
       </section>
-      {openSettings && <UserSettings className="z-[1]" />}
+      {openSettings && <UserSettings className="z-[100]" />}
     </>
   );
 };

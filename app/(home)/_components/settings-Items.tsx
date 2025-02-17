@@ -1,12 +1,16 @@
 interface SettingsItemsProps {
-  icon: any;
+  icon: React.ReactNode;
   title: string;
+  onClick?: () => void;
 }
 
-const SettingsItems = ({ icon, title }: SettingsItemsProps) => {
+const SettingsItems = ({ icon, title, onClick }: SettingsItemsProps) => {
   return (
     <>
-      <section className="flex items-center gap-2 py-[2px] cursor-pointer hover:bg-[#ffffff12] px-4">
+      <section
+        className="flex items-center gap-2 py-[2px] cursor-pointer hover:bg-[#ffffff12] px-4"
+        onClick={onClick}
+      >
         {icon}
         <h2
           className={
