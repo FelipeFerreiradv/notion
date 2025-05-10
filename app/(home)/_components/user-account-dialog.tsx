@@ -6,7 +6,8 @@ import Image from "next/image";
 import clsx from "clsx";
 import { logoutUser } from "@/app/api/_untils/logout";
 import UserSettings from "./settings";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import getUserProfile from "../_untils/get-user-profile";
 
 interface UserAccountDialogProps {
   className?: string;
@@ -18,6 +19,17 @@ const UserAccountDialog: React.FC<UserAccountDialogProps> = ({
   style,
 }) => {
   const [openSettings, setOpenSettings] = useState<boolean>(false);
+  const [email, setEmail] = useState<string | null>(null);
+
+  const getUser = async () => {
+    try {
+      const response = await getUserProfile();
+      console.log("User fetched:", response);
+      setEmail(response);
+    } catch (error) {
+      console.error("Error fetching user profile:", error);
+    }
+  };
 
   const userLogout = () => {
     const logout = logoutUser();
@@ -26,16 +38,19 @@ const UserAccountDialog: React.FC<UserAccountDialogProps> = ({
   };
 
   const toggleOpenSettings = () => {
-    console.log("clicou");
     setOpenSettings((prevState) => !prevState);
   };
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   return (
     <>
       <section
         style={style}
         className={clsx(
-          "absolute left-4 top-11 flex-col w-[300px] h-[300px] rounded-md bg-[#242424] z-[-1] transition-all duration-500",
+          "absolute left-4 top-11 flex-col w-[300px] h-[320px] rounded-md bg-[#242424] z-[-1] transition-all duration-500",
           className
         )}
       >
@@ -68,18 +83,27 @@ const UserAccountDialog: React.FC<UserAccountDialogProps> = ({
         </div>
         <div className="flex flex-col gap-2 w-full py-2 px-4 border-b-[.3px] border-[#ffffff21] bg-[#191919]">
           <div className="flex items-center justify-between">
-            <p className="text-xs text-[#ffffff70]">fefelbf@gmail.com</p>
-            <Ellipsis width={14} className="text-[#ffffff70]" />
+            <p className="text-xs text-[#ffffff70]">
+              {email || "../../../../../../"}
+            </p>
+            <Ellipsis
+              width={14}
+              height={14}
+              className="text-[#ffffff70] rounded-sm hover:bg-[#303030] cursor-pointer"
+            />
           </div>
           <div className="flex items-center justify-between">
-            <Image
-              src="/perflog.jpg"
-              alt="perflog images"
-              width={20}
-              height={20}
-              className="rounded-full object-cover"
-              style={{ width: "auto", height: "auto" }}
-            />
+            <div className="flex items-center gap-2">
+              <Image
+                src="/perflog.jpg"
+                alt="perflog images"
+                width={17}
+                height={17}
+                className="rounded-md object-cover"
+                style={{ width: "auto", height: "auto" }}
+              />
+              <p className="text-[#ccc]">...</p>
+            </div>
             <svg
               role="graphics-symbol"
               viewBox="0 0 16 16"
@@ -117,7 +141,7 @@ const UserAccountDialog: React.FC<UserAccountDialogProps> = ({
           </p>
         </div>
       </section>
-      {openSettings && <UserSettings className="z-[1]" />}
+      {openSettings && <UserSettings className="z-[100]" />}
     </>
   );
 };

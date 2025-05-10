@@ -15,8 +15,11 @@ POST http://localhost:3333/login
 Content-Type: application/json
 
 {
-    "email": "fefelbf@gmail.com",
+    "email": "fefelbf@gmail.com"
 }
+
+###
+GET http://localhost:3333/login?email=fefelbf@gmail.com
 
 ###
 
